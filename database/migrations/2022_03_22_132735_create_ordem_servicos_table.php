@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('ordem_servicos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('contratante_id')->constrained('contratantes');
+            $table->foreignId('funcionario_id')->constrained('funcionarios');
             $table->enum(
                 'natureza',
                 [
