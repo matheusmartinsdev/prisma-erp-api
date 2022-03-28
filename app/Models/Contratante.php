@@ -12,4 +12,9 @@ class Contratante extends Model
     protected $table = 'contratantes';
 
     protected $guarded = [];
+
+    public function servicos()
+    {
+        return $this->hasMany(OrdemServico::class);
+    }
 }
