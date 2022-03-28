@@ -12,4 +12,9 @@ class OrdemServico extends Model
     protected $table = 'ordem_servicos';
 
     protected $guarded = [];
+
+    public function contratante()
+    {
+        return $this->belongsTo(Contratante::class);
+    }
 }
