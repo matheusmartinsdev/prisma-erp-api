@@ -12,4 +12,10 @@ class FuncionariosController extends Controller
     use DisableAuthorization;
 
     protected $model = Funcionario::class;
+
+    public function getTecnicos()
+    {
+        $tecnicos = Funcionario::query()->where('tipo', 'tecnico')->get();
+        return response()->json($tecnicos);
+    }
 }

@@ -17,7 +17,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::group(['as' => 'api.'], function () {
         Orion::resource('/contratantes', ContratantesController::class)->except(["create", "edit"]);
         Orion::resource('/ordens', OrdensServicoController::class)->except(["create", "edit"]);
+
+        // Funcionários
         Orion::resource('/funcionarios', FuncionariosController::class)->except(["create", "edit"]);
+        Route::get('/tecnicos', [FuncionariosController::class, 'getTecnicos']);
 
         Orion::hasManyResource('/contratantes', '/servicos', ContratanteOrdensController::class)->except(["create", "edit"]);
     });
