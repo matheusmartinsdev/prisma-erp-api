@@ -12,4 +12,9 @@ class Funcionario extends Model
     protected $table = 'funcionarios';
 
     protected $guarded = [];
+
+    public function ordens()
+    {
+        return $this->hasMany(\App\Models\OrdemServico::class);
+    }
 }

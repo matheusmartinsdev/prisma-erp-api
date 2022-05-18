@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\ContratanteOrdensController;
+use App\Http\Controllers\Api\OrdemFuncionarioController;
+use App\Http\Controllers\Api\OrdemContratanteController;
+use App\Http\Controllers\Api\FuncionarioOrdensController;
 use App\Http\Controllers\Api\FuncionariosController;
 use App\Http\Controllers\Api\ContratantesController;
 use App\Http\Controllers\Api\OrdensServicoController;
@@ -20,9 +22,18 @@ Route::middleware('auth:sanctum')->group(function () {
 
         // Funcionários
         Orion::resource('/funcionarios', FuncionariosController::class)->except(["create", "edit"]);
+
+        // Funcionários do tipo 'técnico'
         Route::get('/tecnicos', [FuncionariosController::class, 'getTecnicos']);
 
-        Orion::hasManyResource('/contratantes', '/servicos', ContratanteOrdensController::class)->except(["create", "edit"]);
+        // Ordens de serviço vinculadas à um funcionário
+        Orion::hasManyResource('funcionarios', 'ordens', FuncionarioOrdensController::class);
+
+        // Funcionário vinculado à uma ordem de serviço
+        Orion::belongsToResource('ordem', 'funcionario', OrdemFuncionarioController::class);
+
+        // Contratante vinculado à uma ordem de serviço
+        Orion::belongsToResource('ordem', 'contratante', OrdemContratanteController::class);
     });
 
     // Logout

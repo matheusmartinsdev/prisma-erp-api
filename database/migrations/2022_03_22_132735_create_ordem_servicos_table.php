@@ -32,8 +32,9 @@ return new class extends Migration
                 ]
             );
             $table->enum('tipagem', ['corretiva', 'preventiva']);
-            $table->time('inicio');
-            $table->timestamp('finalizacao')->nullable();
+            $table->date('inicio');
+            $table->date('finalizacao')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -17,4 +17,9 @@ class OrdemServico extends Model
     {
         return $this->belongsTo(Contratante::class);
     }
+
+    public function funcionario()
+    {
+        return $this->belongsTo(Funcionario::class);
+    }
 }
