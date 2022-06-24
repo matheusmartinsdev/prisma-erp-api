@@ -18,4 +18,15 @@ class FuncionariosController extends Controller
         $tecnicos = Funcionario::query()->where('tipo', 'tecnico')->get();
         return response()->json($tecnicos);
     }
+
+    public function getTecnicosOrdens()
+    {
+        $tecnicos = Funcionario::query()
+            ->where('tipo', '=', 'tecnico')
+            ->withCount('ordens')
+            ->get()
+            ->pluck('ordens_count', 'nome');
+
+        return response()->json($tecnicos);
+    }
 }

@@ -26,6 +26,9 @@ Route::middleware('auth:sanctum')->group(function () {
         // Funcionários do tipo 'técnico'
         Route::get('/tecnicos', [FuncionariosController::class, 'getTecnicos']);
 
+        // Número de ordens por técnico
+        Route::get('/tecnicos/ordens', [FuncionariosController::class, 'getTecnicosOrdens']);
+
         // Ordens de serviço vinculadas à um funcionário
         Orion::hasManyResource('funcionarios', 'ordens', FuncionarioOrdensController::class);
 
