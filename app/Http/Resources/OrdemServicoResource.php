@@ -20,7 +20,8 @@ class OrdemServicoResource extends JsonResource
             'responsavel'   => $this->funcionario,
             'tipagem'       => $this->tipagem,
             'natureza'      => $this->natureza,
-            'inicio'        => $this->inicio
+            'inicio'        => $this->inicio,
+            'finalizacao'   => $this->finalizacao,
         ];
     }
 }

@@ -6,7 +6,7 @@ return [
         'controllers' => 'App\\Http\\Controllers\\'
     ],
     'auth' => [
-        'guard' => 'api'
+        'guard' => 'sanctum'
     ],
     'specs' => [
         'info' => [
@@ -25,13 +25,7 @@ return [
             'version' => '1.0.0',
         ],
         'servers' => [
-            ['url' => env('APP_URL').'/api', 'description' => 'Default Environment'],
+            ['url' => env('APP_URL') . '/api', 'description' => 'Default Environment'],
         ],
     ],
-    'transactions' => [
-        'enabled' => false,
-    ],
-    'search' => [
-        'case_sensitive' => true, // TODO: set to "false" by default in 3.0 release
-    ]
 ];

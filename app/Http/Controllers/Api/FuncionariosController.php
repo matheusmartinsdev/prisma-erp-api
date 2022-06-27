@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Funcionario;
-use Illuminate\Support\Facades\Auth;
 use Orion\Concerns\DisableAuthorization;
 use Orion\Http\Controllers\Controller;
 
@@ -21,11 +20,7 @@ class FuncionariosController extends Controller
 
     public function getTecnicosOrdens()
     {
-        $tecnicos = Funcionario::query()
-            ->where('tipo', '=', 'tecnico')
-            ->withCount('ordens')
-            ->get()
-            ->pluck('ordens_count', 'nome');
+        $tecnicos = Funcionario::comOrdensCount()->get();
 
         return response()->json($tecnicos);
     }

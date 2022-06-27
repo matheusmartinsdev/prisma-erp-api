@@ -17,9 +17,9 @@ class FuncionarioFactory extends Factory
     public function definition()
     {
         return [
-            'nome'      => $this->faker->name(),
+            'nome'      => $this->faker->firstName() . ' ' . $this->faker->lastName(),
             'matricula' => $this->faker->numerify("#########"),
-            'tipo'      => $this->faker->randomElement((['tecnico', 'administrativo']))
+            'tipo'      => 'tecnico'
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OrdemServico>
@@ -31,7 +32,7 @@ class OrdemServicoFactory extends Factory
                 'administrativo'
             ]),
             'tipagem'           => $this->faker->randomElement(['corretiva', 'preventiva']),
-            'inicio'            => $this->faker->date(),
+            'inicio'            => Carbon::parse($this->faker->dateTimeBetween('-4 days'))->format('d/m/Y'),
         ];
     }
 }

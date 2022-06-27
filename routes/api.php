@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Auth;
 
 Route::middleware('auth:sanctum')->group(function () {
     // Devolver dados de usuário
-    // Route::get("/eu", fn () => response()->json(Auth::user()->createToken('app-token')->plainTextToken));
+    Route::get("/eu", fn (Request $request) => $request->user());
 
     Route::group(['as' => 'api.'], function () {
         Orion::resource('/contratantes', ContratantesController::class)->except(["create", "edit"]);
-        Orion::resource('/ordens', OrdensServicoController::class)->except(["create", "edit"]);
+        Orion::resource('/servicos', OrdensServicoController::class)->except(["create", "edit"]);
 
         // Funcionários
         Orion::resource('/funcionarios', FuncionariosController::class)->except(["create", "edit"]);
@@ -26,46 +26,51 @@ Route::middleware('auth:sanctum')->group(function () {
         // Funcionários do tipo 'técnico'
         Route::get('/tecnicos', [FuncionariosController::class, 'getTecnicos']);
 
+        // Ordens de serviço por tipo
+        Route::get('/servicos-por-tipo', [OrdensServicoController::class, 'getOrdensPorTipo']);
+
         // Número de ordens por técnico
         Route::get('/tecnicos/ordens', [FuncionariosController::class, 'getTecnicosOrdens']);
 
         // Ordens de serviço vinculadas à um funcionário
         Orion::hasManyResource('funcionarios', 'ordens', FuncionarioOrdensController::class);
 
+        // Orion::hasOneResource('servicos', 'tecnico', OrdemFuncionarioController::class);
+
         // Funcionário vinculado à uma ordem de serviço
-        Orion::belongsToResource('ordem', 'funcionario', OrdemFuncionarioController::class);
+        // Orion::belongsToResource('ordem', 'funcionario', OrdemFuncionarioController::class);
 
-        // Contratante vinculado à uma ordem de serviço
-        Orion::belongsToResource('ordem', 'contratante', OrdemContratanteController::class);
+        // Número de ordens por contratante
+        Route::get('/clientes/ordens', [ContratantesController::class, 'getContratantesOrdens']);
     });
 
-    // Logout
-    Route::post("/logout", function (Request $request) {
-        if ($request->user()->tokens()->delete()) {
-            return response(status: 204);
-        }
+    // // Logout
+    // Route::post("/logout", function (Request $request) {
+    //     if ($request->user()->tokens()->delete()) {
+    //         return response(status: 204);
+    //     }
 
-        return response()->json([
-            'message' => 'Internal Server Error!'
-        ], status: 500);
-    });
+    //     return response()->json([
+    //         'message' => 'Internal Server Error!'
+    //     ], status: 500);
+    // });
 });
 
-// Login
-Route::post("/login", function (Request $request) {
-    $credentials = $request->validate(
-        [
-            'email' => ['required', 'email'],
-            'password' => ['required']
-        ]
-    );
+// // Login
+// Route::post("/login", function (Request $request) {
+//     $credentials = $request->validate(
+//         [
+//             'email' => ['required', 'email'],
+//             'password' => ['required']
+//         ]
+//     );
 
-    if (Auth::attempt($credentials)) {
+//     if (Auth::attempt($credentials)) {
 
-        $user = \App\Models\User::where('id', Auth::user()->id)->first();
+//         $user = \App\Models\User::where('id', Auth::user()->id)->first();
 
-        return response()->json(new UserResource($user));
-    }
+//         return response()->json(new UserResource($user));
+//     }
 
-    return response()->json(['message' => 'Credenciais inválidas'], status: 422);
-});
+//     return response()->json(['message' => 'Credenciais inválidas'], status: 422);
+// });

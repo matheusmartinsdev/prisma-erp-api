@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('ordem_servicos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('contratante_id')->constrained('contratantes');
-            $table->foreignId('funcionario_id')->constrained('funcionarios');
+            $table->foreignId('contratante_id')->references('id')->on('contratantes');
+            $table->foreignId('funcionario_id')->references('id')->on('funcionarios');
             $table->enum(
                 'natureza',
                 [
@@ -32,8 +32,8 @@ return new class extends Migration
                 ]
             );
             $table->enum('tipagem', ['corretiva', 'preventiva']);
-            $table->date('inicio');
-            $table->date('finalizacao')->nullable();
+            $table->string('inicio');
+            $table->string('finalizacao')->nullable();
             $table->timestamps();
         });
     }

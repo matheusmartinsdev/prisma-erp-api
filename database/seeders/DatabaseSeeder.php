@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +17,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Contratante::factory(5)->create();
         \App\Models\Funcionario::factory(5)->create();
         \App\Models\OrdemServico::factory(5)->create();
+
+        \App\Models\User::create(['name' => 'Matheus Martins', 'password' => '123456', 'email' => 'matheus@prisma.app']);
     }
 }
