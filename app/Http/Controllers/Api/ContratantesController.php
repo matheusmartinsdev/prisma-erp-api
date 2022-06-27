@@ -11,4 +11,11 @@ class ContratantesController extends Controller
     use DisableAuthorization;
 
     protected $model = Contratante::class;
+
+    public function getContratantesOrdens()
+    {
+        $contratantes = Contratante::comOrdensCount()->get();
+
+        return response()->json($contratantes);
+    }
 }

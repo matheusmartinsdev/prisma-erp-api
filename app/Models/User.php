@@ -42,6 +42,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $visible = ['id', 'name', 'email'];
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = \Illuminate\Support\Facades\Hash::make($value);
