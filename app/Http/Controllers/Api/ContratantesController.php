@@ -12,10 +12,8 @@ class ContratantesController extends Controller
 
     protected $model = Contratante::class;
 
-    public function getContratantesOrdens()
+    public function exposedScopes(): array
     {
-        $contratantes = Contratante::comOrdensCount()->get();
-
-        return response()->json($contratantes);
+        return ['comOrdensCount'];
     }
 }

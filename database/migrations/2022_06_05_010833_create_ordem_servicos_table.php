@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('ordem_servicos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('contratante_id')->references('id')->on('contratantes');
-            $table->foreignId('funcionario_id')->references('id')->on('funcionarios');
+            $table->foreignId('contratante_id')->nullOnDelete();
+            $table->foreignId('funcionario_id')->nullOnDelete();
             $table->enum(
                 'natureza',
                 [

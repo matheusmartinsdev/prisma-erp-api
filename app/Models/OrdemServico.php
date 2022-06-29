@@ -14,18 +14,42 @@ class OrdemServico extends Model
 
     protected $guarded = [];
 
-    public function scopeComContagemDeTipos(Builder $query)
+    public function scopeContagemPreventivas(Builder $query)
     {
-        return $query->where('tipagem', '=', 'preventiva');
+        return $query->where('tipagem', '=', 'preventiva')->count();
+    }
+
+    public function scopeContagemCorretivas(Builder $query)
+    {
+        return $query->where('tipagem', '=', 'corretivas')->count();
+    }
+
+    public function scopeFinalizadas(Builder $query)
+    {
+        return $query->where('finalizacao', '!=', null);
     }
 
     public function contratante()
     {
-        return $this->belongsTo(Contratante::class);
+        $contratanteFantasma = new Contratante([
+            'id'        => 0,
+            'nome'      => 'null',
+            'cnpj'      => '000000000',
+            'cidade'    => 'null',
+            'estado'    => 'null',
+            'cep'       => 'null'
+        ]);
+        return $this->belongsTo(Contratante::class)->withDefault($contratanteFantasma);
     }
 
     public function funcionario()
     {
-        return $this->belongsTo(Funcionario::class);
+        $funcionarioFantasma = new Funcionario([
+            'id'        => 0,
+            'nome'      => 'null',
+            'matricula' => '000000000',
+            'tipo'      => 'tecnico'
+        ]);
+        return $this->belongsTo(Funcionario::class)->withDefault($funcionarioFantasma);
     }
 }

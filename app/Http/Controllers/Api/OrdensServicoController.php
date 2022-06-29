@@ -14,6 +14,16 @@ class OrdensServicoController extends Controller
 
     protected $attributes = ['finalizacao'];
 
+    public function filterableBy(): array
+    {
+        return ['tipagem'];
+    }
+
+    public function exposedScopes(): array
+    {
+        return ['contagemCorretivas', 'contagemPreventivas'];
+    }
+
     public function getOrdensPorTipo()
     {
         $preventivas = OrdemServico::where('tipagem', '=', 'preventiva')->count();

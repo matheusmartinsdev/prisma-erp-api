@@ -14,9 +14,14 @@ class Funcionario extends Model
 
     protected $guarded = [];
 
-    public function scopeComOrdensCount(Builder $query)
+    public function scopeComContagemDeOrdens(Builder $query)
     {
         return $query->where('tipo', '=', 'tecnico')->withCount('ordens');
+    }
+
+    public function scopeTecnicos(Builder $query)
+    {
+        return $query->where('tipo', '=', 'tecnico');
     }
 
     public function ordens()
