@@ -20,7 +20,10 @@ Route::middleware('auth:sanctum')->group(function () {
         // Ordens de serviço por tipo
         Route::get('/servicos-por-tipo', [OrdensServicoController::class, 'getOrdensPorTipo']);
 
+        // Ordens de serviço por natureza
+        Route::get('/servicos-por-natureza', [OrdensServicoController::class, 'getOrdensPorNatureza']);
+
         //PDF
-        Route::get('/pdf', [GerarPDFController::class, 'getContratantesPDF']);
+        Route::get('/pdf', [GerarPDFController::class, 'getPDF']);
     });
 });

@@ -12,8 +12,6 @@ class OrdensServicoController extends Controller
 
     protected $model = OrdemServico::class;
 
-    protected $attributes = ['finalizacao'];
-
     public function filterableBy(): array
     {
         return ['tipagem'];
@@ -21,7 +19,7 @@ class OrdensServicoController extends Controller
 
     public function exposedScopes(): array
     {
-        return ['contagemCorretivas', 'contagemPreventivas'];
+        return ['contagemCorretivas', 'contagemPreventivas', 'contagemFinalizadas', 'contagemEmAberto'];
     }
 
     public function getOrdensPorTipo()
@@ -30,5 +28,12 @@ class OrdensServicoController extends Controller
         $corretivas = OrdemServico::where('tipagem', '=', 'corretiva')->count();
 
         return response()->json(['preventiva' => $preventivas, 'corretivas' => $corretivas]);
+    }
+
+    public function getOrdensPorNatureza()
+    {
+        $servicos = OrdemServico::all()->groupBy('natureza');
+
+        return response()->json($servicos);
     }
 }

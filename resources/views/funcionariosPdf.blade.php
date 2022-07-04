@@ -13,27 +13,23 @@
 
 <body>
     <div class="row">
-        <h1 class="h1">Contratantes</h1>
+        <h1 class="h1">Funcionários</h1>
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Nome</th>
-                    <th scope="col">CNPJ</th>
-                    <th scope="col">Endereço</th>
-                    <th scope="col">Cidade</th>
-                    <th scope="col">Estado</th>
+                    <th scope="col">Matrícula</th>
+                    <th scope="col">Tipo</th>
                     <th scope="col">Número de ordens</th>
                 </tr>
             </thead>
             <tbody class="text-center">
-                @foreach ($contratantes as $contratante)
+                @foreach ($funcionarios as $funcionario)
                 <tr>
-                    <td class="font-weight-bold">{{ $contratante->nome }}</td>
-                    <td>{{ $contratante->cnpj }}</td>
-                    <td>{{ $contratante->endereco }}</td>
-                    <td>{{ $contratante->cidade }}</td>
-                    <td>{{ $contratante->estado }}</td>
-                    <td>{{ $contratante->ordens()->count() }}</td>
+                    <td class="font-weight-bold">{{ $funcionario->nome }}</td>
+                    <td>{{ $funcionario->matricula }}</td>
+                    <td>{{ $funcionario->tipo }}</td>
+                    <td>{{ $funcionario->ordens()->count() }}</td>
                 </tr>
                 @endforeach
             </tbody>

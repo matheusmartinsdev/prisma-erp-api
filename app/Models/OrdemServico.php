@@ -24,9 +24,14 @@ class OrdemServico extends Model
         return $query->where('tipagem', '=', 'corretivas')->count();
     }
 
-    public function scopeFinalizadas(Builder $query)
+    public function scopeContagemFinalizadas(Builder $query)
     {
-        return $query->where('finalizacao', '!=', null);
+        return $query->whereNull('finalizacao')->count();
+    }
+
+    public function scopeContagemEmAberto(Builder $query)
+    {
+        return $query->whereNotNull('finalizacao')->count();
     }
 
     public function contratante()

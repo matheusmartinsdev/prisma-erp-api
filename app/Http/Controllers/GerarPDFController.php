@@ -8,12 +8,20 @@ use PDF;
 
 class GerarPDFController extends Controller
 {
-    public function getContratantesPDF(Request $request)
+    private $entidade;
+    private $model;
+    private $pdf;
+
+    public function __construct(Request $request)
     {
-        $contratantes = Contratante::all();
+        $this->entidade = $request->input('tipo');
+        $this->model = "\\App\\Models\\" . ucfirst($this->entidade);
+        $this->pdf = PDF::loadview($this->entidade . 'sPdf', [$this->entidade . 's' => (new $this->model)->all()])
+            ->setPaper('a4', 'landscape')->stream('pdf' . $this->entidade . '.pdf');
+    }
 
-        $pdf = PDF::loadView('contratantesPdf', ['contratantes' => $contratantes]);
-
-        return $pdf->setPaper('a4', 'landscape')->stream('pdfContratantes.pdf');
+    public function getPDF()
+    {
+        return $this->pdf;
     }
 }
